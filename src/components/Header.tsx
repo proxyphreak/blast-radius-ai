@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenUpload,
   onOpenApiKey,
   onExportReport,
-  hasApiKey,
+  hasApiKey: _hasApiKey,
   isSimulated
 }) => {
   const activePreset = presets.find((p) => p.id === activePresetId) || presets[0];
@@ -73,10 +73,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Hackathon Badge */}
-        <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-950/40 border border-indigo-800/40 text-[11px] text-indigo-300">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Ace Builders Hackathon '26</span>
+        {/* Codebenders Hackathon Badge */}
+        <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-950/80 to-purple-950/80 border border-indigo-700/60 text-[11px] text-indigo-300 font-semibold shadow-sm shadow-indigo-500/10">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <span>Codebenders ACE Builders '26</span>
         </div>
       </div>
 
@@ -124,19 +124,15 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="hidden md:inline">Custom Code</span>
         </button>
 
-        {/* Gemini API Key Status */}
+        {/* Codebenders Nexen AI Status */}
         <button
           onClick={onOpenApiKey}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs transition ${
-            hasApiKey
-              ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300 hover:bg-emerald-900/40'
-              : 'bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-800'
-          }`}
-          title="Configure Gemini API or Local Engine"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-500/50 bg-indigo-950/40 text-indigo-300 hover:bg-indigo-900/40 text-xs transition"
+          title="Configure Codebenders Nexen AI & Reasoning Engine"
         >
           <Key className="w-3.5 h-3.5 text-amber-400" />
           <span className="hidden md:inline">
-            {hasApiKey ? 'Gemini 2.0 Active' : 'Local AI Active'}
+            Codebenders Nexen AI
           </span>
         </button>
 
