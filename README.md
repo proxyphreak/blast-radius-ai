@@ -5,6 +5,8 @@
 Built natively for: **Codebenders ACE Architecture & Nexen AI Ecosystem**  
 Developer: **@proxyphreak** | Global Online Hackathon by Codebenders
 
+🎬 **[Watch 90-Second Walkthrough Video](https://github.com/proxyphreak/blast-radius-ai/blob/main/demo_video.mp4)**
+
 ---
 
 ## ⚡ The Problem: "The Production Break Anxiety"
