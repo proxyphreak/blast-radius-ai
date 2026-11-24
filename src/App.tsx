@@ -16,6 +16,7 @@ import { NodeInspectorModal } from './components/NodeInspectorModal';
 import { CodeIngestionModal } from './components/CodeIngestionModal';
 import { ApiKeyModal } from './components/ApiKeyModal';
 import { ExportReportModal } from './components/ExportReportModal';
+import { Hologram3DCanvas } from './components/Hologram3DCanvas';
 import confetti from 'canvas-confetti';
 
 export function App() {
@@ -31,7 +32,8 @@ export function App() {
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
   const [result, setResult] = useState<BlastAnalysisResult | null>(null);
 
-  // Modals state
+  // 3D Matrix & Modals state
+  const [is3DFullOpen, setIs3DFullOpen] = useState<boolean>(false);
   const [inspectedNode, setInspectedNode] = useState<CodeNodeData | null>(null);
   const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
   const [isApiKeyOpen, setIsApiKeyOpen] = useState<boolean>(false);
@@ -208,7 +210,7 @@ export function App() {
   }));
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans selection:bg-red-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans selection:bg-red-500/30 selection:text-white relative overflow-hidden">
       {/* Top Navbar */}
       <Header
         presets={ARCHITECTURE_PRESETS}
@@ -217,12 +219,21 @@ export function App() {
         onOpenUpload={() => setIsUploadOpen(true)}
         onOpenApiKey={() => setIsApiKeyOpen(true)}
         onExportReport={() => setIsReportOpen(true)}
+        onToggle3D={() => setIs3DFullOpen(true)}
+        is3DActive={is3DFullOpen}
         hasApiKey={Boolean(apiKey && apiKey.trim())}
         isSimulated={Boolean(result)}
       />
 
       {/* Main Graph & Sidebar Workspace */}
       <main className="flex-1 flex flex-col lg:flex-row relative overflow-hidden">
+        {/* Ambient 3D Holographic Particle Matrix in Canvas Background */}
+        <Hologram3DCanvas
+          mode="ambient"
+          isSimulated={Boolean(result)}
+          severity={result?.severity || null}
+        />
+
         {/* Interactive React Flow Architecture Graph Canvas */}
         <GraphCanvas
           nodes={nodes}
@@ -246,6 +257,16 @@ export function App() {
           activePreset={activePreset}
         />
       </main>
+
+      {/* Full 3D Holographic Matrix HUD View */}
+      {is3DFullOpen && (
+        <Hologram3DCanvas
+          mode="full"
+          isSimulated={Boolean(result)}
+          severity={result?.severity || null}
+          onCloseFull={() => setIs3DFullOpen(false)}
+        />
+      )}
 
       {/* Modals */}
       <NodeInspectorModal
