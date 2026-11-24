@@ -10,7 +10,8 @@ import {
   ShieldCheck, 
   ShoppingCart, 
   Bot,
-  Flame
+  Flame,
+  Box
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -20,6 +21,8 @@ interface HeaderProps {
   onOpenUpload: () => void;
   onOpenApiKey: () => void;
   onExportReport: () => void;
+  onToggle3D: () => void;
+  is3DActive: boolean;
   hasApiKey: boolean;
   isSimulated: boolean;
 }
@@ -31,6 +34,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenUpload,
   onOpenApiKey,
   onExportReport,
+  onToggle3D,
+  is3DActive: _is3DActive,
   hasApiKey: _hasApiKey,
   isSimulated
 }) => {
@@ -64,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({
                 BlastRadius<span className="text-red-500 font-extrabold">.AI</span>
               </span>
               <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/60 flex items-center gap-1">
-                <Flame className="w-2.5 h-2.5" /> Ripple Engine
+                <Flame className="w-2.5 h-2.5" /> 3D Ripple Engine
               </span>
             </div>
             <p className="text-[11px] text-slate-400 hidden sm:block">
@@ -81,12 +86,22 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Preset Switcher & Action Buttons */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
+        {/* 3D Hologram Toggle Button */}
+        <button
+          onClick={onToggle3D}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-950/80 to-indigo-950/80 border border-cyan-500/60 hover:border-cyan-400 text-xs text-cyan-300 font-semibold transition shadow-sm shadow-cyan-500/20"
+          title="Toggle 3D Holographic Matrix View"
+        >
+          <Box className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
+          <span className="hidden sm:inline">3D Matrix View</span>
+        </button>
+
         {/* Presets Dropdown */}
         <div className="relative group">
           <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-slate-600 text-xs text-slate-200 transition">
             {getPresetIcon(activePreset.icon)}
-            <span className="font-medium max-w-[140px] truncate">{activePreset.name}</span>
+            <span className="font-medium max-w-[130px] truncate">{activePreset.name}</span>
             <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform" />
           </button>
 
@@ -132,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <Key className="w-3.5 h-3.5 text-amber-400" />
           <span className="hidden md:inline">
-            Codebenders Nexen AI
+            Nexen AI
           </span>
         </button>
 
@@ -143,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium shadow-md shadow-indigo-600/30 transition"
           >
             <FileDown className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Export Report</span>
+            <span className="hidden sm:inline">Export</span>
           </button>
         )}
       </div>
